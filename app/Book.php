@@ -8,6 +8,10 @@ class Book extends Model
 {
     protected $fillable = 
     [
-        'judul', 'penulis', 'halaman', 'tahun'
+        'judul', 'nama', 'harga', 'jumlah', 'user_id'
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

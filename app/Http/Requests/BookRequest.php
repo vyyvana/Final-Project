@@ -25,7 +25,7 @@ class BookRequest extends FormRequest
     {
         return [
             'judul' => 'required|min:5|max:20',
-            'penulis' => 'required|min:5|max:20',
+            'nama' => 'required|min:5|max:20',
             'halaman' => 'required|integer|min:0',
             'tahun' => 'required|integer|min:2000|max:2021',
         ];
@@ -35,7 +35,7 @@ class BookRequest extends FormRequest
     {
         return[
             'judul.required' => 'Harus mengisi judul',
-            'penulis.required' => 'Harus mengisi penulis',
+            'nama.required' => 'Harus mengisi nama',
             'halaman.required' => 'Harus mengisi halaman',
             'tahun.required' => 'Harus mengisi tahun'
         ];

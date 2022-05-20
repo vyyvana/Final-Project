@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BookRequest;
 use App\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -17,15 +18,17 @@ class BookController extends Controller
     {
         // Query Builder
         // Elonguent
+        // dd($request);
         Book::create(
             [
                 'judul' => $request->judul,
-                'penulis' => $request->penulis,
-                'halaman' => $request->halaman,
-                'tahun' => $request->tahun
+                'nama' => $request->nama,
+                'harga' => $request->halaman,
+                'jumlah' => $request->tahun,
+                'user_id' => Auth::user()->id
             ]
             );
-        return redirect(route('home'));
+        return redirect(route('home'))->with('success', 'Buku berhasil dibuat');
         // return view('home')
     }
 

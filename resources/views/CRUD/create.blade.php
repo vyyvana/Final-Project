@@ -26,12 +26,12 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="penulis" class="col-md-4 col-form-label text-md-right">{{ __('Penulis') }}</label>
+                            <label for="nama" class="col-md-4 col-form-label text-md-right">{{ __('Nama') }}</label>
 
                             <div class="col-md-6">
-                                <input id="penulis" type="text" class="form-control" name="penulis" placeholder="Penulis buku">
+                                <input id="nama" type="text" class="form-control" name="nama" placeholder="Nama buku">
 
-                                @error('penulis')
+                                @error('nama')
                                     <div class="text-danger">
                                         {{ $message }}
                                     </div>
