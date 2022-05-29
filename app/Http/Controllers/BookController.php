@@ -92,25 +92,11 @@ class BookController extends Controller
         // Elonguent
        
         $Book = Book::find($id);
-        // dd($Book->category);
-        // $category = $Book->category;
-        //     dd($category);
         $test = array();
         foreach($Book->category as $category)
         {
             array_push($test, $category->category_name);
-            // dd($category->category_name);
         }
-        // dd($test);
-        // $test = $category->category_name;
-        
-        // $category = Category::find($id)->first();
-        // $category = Category::where('book_id', 'LIKE', '%'.$id.'%')->get();
-        // $category = Category::where('book_id', 'LIKE', $id); 
-        // $category = Category::all();
-        // $kategoris = Book::with('Category')->whereHas Category
-        
-        // dd(implode(", ", $test));
         $faktur = Faktur::create(
             [
                 'namabarang' => $Book->nama,
