@@ -24,20 +24,22 @@ class BookRequest extends FormRequest
     public function rules()
     {
         return [
-            'judul' => 'required|min:5|max:20',
-            'nama' => 'required|min:5|max:20',
-            'halaman' => 'required|integer|min:0',
-            'tahun' => 'required|integer|min:2000|max:2021',
+            'category' => 'required',
+            'nama' => 'required|min:5|max:80',
+            'harga' => 'required|integer|min:1',
+            'jumlah' => 'required|integer|min:1',
+            'image' => 'required|image'
         ];
     }
 
     public function messages()
     {
         return[
-            'judul.required' => 'Harus mengisi judul',
+            'category.required' => 'Harus mengisi kategori',
             'nama.required' => 'Harus mengisi nama',
-            'halaman.required' => 'Harus mengisi halaman',
-            'tahun.required' => 'Harus mengisi tahun'
+            'harga.required' => 'Harus mengisi harga',
+            'jumlah.required' => 'Harus mengisi jumlah',
+            'image.required' => 'Harus mengupload foto'
         ];
     }
 

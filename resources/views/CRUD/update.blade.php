@@ -12,12 +12,12 @@
                         @csrf
                         @method('Patch')
                         <div class="form-group row">
-                            <label for="judul" class="col-md-4 col-form-label text-md-right">{{ __('Judul') }}</label>
+                            <label for="kategori" class="col-md-4 col-form-label text-md-right">{{ __('Kategori') }}</label>
 
                             <div class="col-md-6">
-                                <input id="judul" type="text" value="{{ $buku->judul }}" class="form-control" name = "judul" placeholder="Judul buku">
+                                <input id="kategori" type="text" value="{{ $buku->kategori }}" class="form-control" name = "kategori" placeholder="Kategori barang">
 
-                                @error('judul')
+                                @error('kategori')
                                     <div class="text-danger">
                                         {{ $message }}
                                     </div>
@@ -26,12 +26,12 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="penulis" class="col-md-4 col-form-label text-md-right">{{ __('Penulis') }}</label>
+                            <label for="nama" class="col-md-4 col-form-label text-md-right">{{ __('Nama') }}</label>
 
                             <div class="col-md-6">
-                                <input id="penulis" type="text" value="{{ $buku->penulis }}" class="form-control" name="penulis" placeholder="Penulis buku">
+                                <input id="nama" type="text" value="{{ $buku->nama }}" class="form-control" name="nama" placeholder="Nama">
 
-                                @error('penulis')
+                                @error('nama')
                                     <div class="text-danger">
                                         {{ $message }}
                                     </div>
@@ -40,12 +40,12 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="halaman" class="col-md-4 col-form-label text-md-right">{{ __('Halaman') }}</label>
+                            <label for="harga" class="col-md-4 col-form-label text-md-right">{{ __('Harga') }}</label>
 
                             <div class="col-md-6">
-                                <input id="halaman" type="number" value="{{ $buku->halaman }}" class="form-control" name="halaman" placeholder="Halaman buku">
+                                <input id="harga" type="number" value="{{ $buku->harga }}" class="form-control" name="harga" placeholder="Harga barang">
 
-                                @error('halaman')
+                                @error('harga')
                                     <div class="text-danger">
                                         {{ $message }}
                                     </div>
@@ -54,11 +54,11 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="tahun" class="col-md-4 col-form-label text-md-right">{{ __('Tahun Terbit') }}</label>
+                            <label for="jumlah" class="col-md-4 col-form-label text-md-right">{{ __('Jumlah barang') }}</label>
 
                             <div class="col-md-6">
-                                <input id="tahun" type="number" value="{{ $buku->tahun }}" class="form-control" name="tahun" placeholder="Tahun terbit buku">
-                                @error('tahun')
+                                <input id="jumlah" type="number" value="{{ $buku->jumlah }}" class="form-control" name="jumlah" placeholder="Jumlah barang">
+                                @error('jumlah')
                                     <div class="text-danger">
                                         {{ $message }}
                                     </div>
@@ -73,6 +73,7 @@
                                 </button>
                             </div>
                         </div>
+                        <p ><small class="text-muted"><a href="{{route('home')}}"> Back to home</a></small></p>
                     </form>
                 </div>
             </div>

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BookRequest;
+use App\Http\Requests\FakturRequest;
 use App\Book;
+use App\Faktur;
+use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,15 +22,19 @@ class BookController extends Controller
         // Query Builder
         // Elonguent
         // dd($request);
-        Book::create(
+        $path = $request->file('image')->store('public/images');
+        $path = substr($path, strlen('public/'));
+        $book = Book::create(
             [
-                'judul' => $request->judul,
                 'nama' => $request->nama,
-                'harga' => $request->halaman,
-                'jumlah' => $request->tahun,
-                'user_id' => Auth::user()->id
+                'harga' => $request->harga,
+                'jumlah' => $request->jumlah,
+                // 'user_id' => Auth::user()->id,
+                'image' => $path
             ]
             );
+        
+        $book->category()->attach($request->category);
         return redirect(route('home'))->with('success', 'Buku berhasil dibuat');
         // return view('home')
     }
@@ -36,6 +43,11 @@ class BookController extends Controller
     {
         $book = Book::all();
         return view('CRUD.view', ['datas' => $book]);
+    }
+    public function ViewThings($id)
+    {
+        $book = Book::find($id);
+        return view('CRUD.viewThings', ['datas' => $book]);
     }
 
     public function UpdateBook($id)
@@ -64,7 +76,68 @@ class BookController extends Controller
     {
         $BookDelete = Book::find($id);
         $BookDelete->delete();
-        return redirect(route('viewBook'))->with('success', 'Buku telah dihapus');
+        return redirect(route('viewBook'))->with('success', 'Barang telah dihapus');
+    }
+
+    public function inFaktur($id)
+    {
+        $Book = Book::find($id);
+        return view('CRUD.faktur', ['datas' => $Book]);
+    }
+
+
+    public function fakturForm(FakturRequest $request, $id)
+    {
+        // Query Builder
+        // Elonguent
+       
+        $Book = Book::find($id);
+        // dd($Book->category);
+        // $category = $Book->category;
+        //     dd($category);
+        $test = array();
+        foreach($Book->category as $category)
+        {
+            array_push($test, $category->category_name);
+            // dd($category->category_name);
+        }
+        // dd($test);
+        // $test = $category->category_name;
+        
+        // $category = Category::find($id)->first();
+        // $category = Category::where('book_id', 'LIKE', '%'.$id.'%')->get();
+        // $category = Category::where('book_id', 'LIKE', $id); 
+        // $category = Category::all();
+        // $kategoris = Book::with('Category')->whereHas Category
+        
+        // dd(implode(", ", $test));
+        $faktur = Faktur::create(
+            [
+                'namabarang' => $Book->nama,
+                'kategori' => implode(", ", $test),
+                'alamat' => $request->alamat,
+                'kodepos' => $request->kodepos,
+                'hargabarang' => $Book->harga,
+                'jumlahbarang' => $request->jumlahbarang,
+                'user_id' => Auth::user()->id,
+            ]
+            );
+            $BookUpdate = Book::where('id', '=', $id)->first(); 
+       
+            $BookUpdate->update(
+            [
+                'jumlah' => $Book->jumlah - $faktur->jumlahbarang,
+            ]
+            );
+        return redirect(route('home'))->with('success', 'Faktur berhasil dibuat');
+        // return view('home')
+    }
+
+    public function ViewFaktur()
+    {
+        $faktur = Faktur::all();
+        // $Book = Book::all();
+        return view('CRUD.viewFaktur', ['datas' => $faktur]);
     }
 
 }

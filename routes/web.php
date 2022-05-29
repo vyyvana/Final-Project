@@ -16,16 +16,29 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/create', 'BookController@create')->name('create');
 
-Route::post('/create', 'BookController@show')->name('newForm');
 
-Route::get('/view', 'BookController@ViewBook')->name('viewBook');
+Route::middleware('admin')->group(function()
+{
+    Route::get('/create', 'BookController@create')->name('create');
+    Route::post('/create', 'BookController@show')->name('newForm');
+    Route::get('/update/{id}', 'BookController@UpdateBook')->name('updateBook');
+    Route::patch('/update/{id}', 'BookController@showUpdate')->name('showUpdate');  
+    Route::delete('/delete/{id}', 'BookController@deleteBook')->name('deleteBook');
+});
 
-Route::get('/update/{id}', 'BookController@UpdateBook')->name('updateBook');
+Route::middleware('auth')->group(function()
+{
+    Route::get('/view', 'BookController@ViewBook')->name('viewBook');
 
-Route::patch('/update/{id}', 'BookController@showUpdate')->name('showUpdate');
+    Route::get('/view/{id}', 'BookController@ViewThings')->name('viewThings');
 
-Route::delete('/delete/{id}', 'BookController@deleteBook')->name('deleteBook');
+    Route::get('/faktur/{id}', 'BookController@inFaktur')->name('fakturBarang');
+
+    Route::post('/faktur/{id}', 'BookController@fakturForm')->name('formFaktur');
+
+    Route::get('/home', 'HomeController@index')->name('home');
+    
+    Route::get('/viewfaktur', 'BookController@ViewFaktur')->name('viewFaktur');
+});
